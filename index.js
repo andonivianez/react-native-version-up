@@ -27,8 +27,9 @@ let patch = helpers.version(versions[2], argv.patch, argv.major || argv.minor);
 const version = `${major}.${minor}.${patch}`;
 
 // getting next build number
-const buildCurrent = helpers.getBuildNumberFromPlist(pathsToPlists[0]);
-const build = buildCurrent + 1;
+const iOSBuildCurrent = helpers.getBuildNumberFromPlist(pathsToPlists[0]);
+const androidBuildCurrent = helpers.getBuildNumberFromBuildGradle(pathToGradle);
+const build = androidBuildCurrent + 1;
 
 // getting commit message
 const messageTemplate = argv.m || argv.message || 'release ${version}: increase versions and build numbers';
@@ -40,14 +41,13 @@ log.info(`- ios project (${pathsToPlists.join(', ')});`, 1);
 log.info(`- android project (${pathToGradle}).`, 1);
 
 log.notice(`\nThe version will be changed:`);
-log.notice(`- from: ${versionCurrent} (${buildCurrent});`, 1);
+log.notice(`- from: ${versionCurrent} (${androidBuildCurrent});`, 1);
 log.notice(`- to:   ${version} (${build}).`, 1);
 
 if (version === versionCurrent) {
   log.warning('\nNothing to change in the version. Canceled.');
   process.exit();
 }
-
 
 const chain = new Promise((resolve, reject) => {
   log.line();
@@ -75,7 +75,7 @@ const update = chain.then(() => {
   pathsToPlists.forEach(pathToPlist => {
     helpers.changeVersionAndBuildInPlist(pathToPlist, version, build);
   });
-  log.success(`Version and build number in ios project (plist file) changed.`, 2);
+  log.success(`Version number in ios project (plist file) changed.`, 2);
 }).then(() => {
   log.info('Updating version in android project...', 1);
 
