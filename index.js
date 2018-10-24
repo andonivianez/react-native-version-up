@@ -24,7 +24,13 @@ const versions = helpers.versions(versionCurrent);
 let major = helpers.version(versions[0], argv.major);
 let minor = helpers.version(versions[1], argv.minor, argv.major);
 let patch = helpers.version(versions[2], argv.patch, argv.major || argv.minor);
-const version = `${major}.${minor}.${patch}`;
+let custom = argv.custom;
+let version = '';
+if(argv.custom){
+  version = custom;
+}else{
+  version = `${major}.${minor}.${patch}`;
+}
 
 // getting next build number
 const iOSBuildCurrent = helpers.getBuildNumberFromPlist(pathsToPlists[0]);
@@ -32,7 +38,7 @@ const androidBuildCurrent = helpers.getBuildNumberFromBuildGradle(pathToGradle);
 const build = androidBuildCurrent + 1;
 
 // getting commit message
-const messageTemplate = argv.m || argv.message || 'release ${version}: increase versions and build numbers';
+const messageTemplate = argv.m || argv.message || '[${version}] \n Cambio de versión';
 const message = messageTemplate.replace('${version}', version);
 
 log.info('\nI\'m going to increase the version in:');

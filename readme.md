@@ -90,6 +90,11 @@ git commit -m 'version:up command added'
 yarn version:up --major
 ```
 
+**5. Increase version to a custom one**
+```bash
+yarn version:up --custom=2.2.2
+```
+
 Or via npm:
 ```bash
 npm run version:up -- --major
@@ -100,12 +105,13 @@ You can pass option name and value with following syntax (remember to put `--` b
 yarn version:up --flag value
 ```
 
-| **Option** | **Type** | **Default value** | **Description** |
-|------------|----------|-------------------|-----------------|
-| **`--major`** | `flag` | | Increase `major` version:<br/>**0**.0.0 -> **1**.0.0 |
-| **`--minor`** | `flag` | | Increase `minor` version:<br/>0.**0**.0 -> 0.**1**.0 |
-| **`--patch`** | `flag` | | Increase `patch` version:<br/>0.0.**0** -> 0.0.**1** |
-| **`--message` or `-m`** | `string` | `"release ${version}: increase versions and build numbers"` | Custom commit message. |
-| **`--pathToPackage './path'`** | `string` | `./package.json` | Path to `package.json` file in your project. |
-| **`--pathToPlist './path'`** | `string` | `./ios/${package.name}/Info.plist` | Path to `Info.plist` file (ios project). |
-| **`--pathToGradle './path'`** | `string` | `./android/app/build.gradle` | Path to `build.gradle` file (android project). |
+| **Option**                     | **Type** | **Default value**                                           | **Description**                                      |
+| ------------------------------ | -------- | ----------------------------------------------------------- | ---------------------------------------------------- |
+| **`--major`**                  | `flag`   |                                                             | Increase `major` version:<br/>**0**.0.0 -> **1**.0.0 |
+| **`--minor`**                  | `flag`   |                                                             | Increase `minor` version:<br/>0.**0**.0 -> 0.**1**.0 |
+| **`--patch`**                  | `flag`   |                                                             | Increase `patch` version:<br/>0.0.**0** -> 0.0.**1** |
+| **`--custom`**                  | `flag`   |                                                            | Put `custom` version:<br/>*.*.* -> *.*.* |
+| **`--message` or `-m`**        | `string` | `"release ${version}: increase versions and build numbers"` | Custom commit message.                               |
+| **`--pathToPackage './path'`** | `string` | `./package.json`                                            | Path to `package.json` file in your project.         |
+| **`--pathToPlist './path'`**   | `string` | `./ios/${package.name}/Info.plist`                          | Path to `Info.plist` file (ios project).             |
+| **`--pathToGradle './path'`**  | `string` | `./android/app/build.gradle`                                | Path to `build.gradle` file (android project).       |
